@@ -1,6 +1,7 @@
-/*
-    Copyright from code - sWiM LTDA & SKB LTDA
-*/
+* {
+    padding: 0;
+    margin: 0;
+}
 
 body {
     background-color: rgb(42, 37, 43);
@@ -98,13 +99,9 @@ a:visited {
 }
 
 header {
-    border-style: solid;
-    border-width: 5px;
     border-bottom: solid 5px #b83dba;
     top: 0;
-    margin-left: -20px;
-    margin-right: -10px;
-    background: rgb(0, 0, 0);
+    background: rgb(12, 12, 12);
     height: 15vh;
     position: fixed;
     width: 100%;
@@ -262,7 +259,7 @@ a.leave {
 
     .nav-list {
         position: absolute;
-        top: 14.8vh;
+        top: 18vh;
         right: -1vh;
         width: 30vh;
         height: 50vh;
@@ -336,4 +333,17 @@ div.footer {
 footer {
     display: flex;
     min-height: 20vh;
+}
+
+canvas.game {
+    border: #b83dba 1px solid;
+    border-right: #ffff4c 1px solid;
+    border-left: #ffff4c 1px solid;
+    outline: rgba(0, 0, 0, 0.2) solid 2px;
+    display: flex;
+    position: static;
+    margin-top: 25vh;
+    width: 80vw;
+    height: calc(56.25% * 80vw);
+    margin-inline: auto;
 }

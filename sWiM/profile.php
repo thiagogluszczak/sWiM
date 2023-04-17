@@ -23,7 +23,7 @@ $sql = "SELECT * FROM accounts_swim";
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-    <link href="style.css?v=<?php echo time(); ?>" rel="stylesheet">
+    <link href="style.css?v=<?php echo time(); ?>" type="text/css" rel="stylesheet">
     <link rel="icon" type="image/png" href=Icon.png width="30px">
     <title>sWiM - Profile</title>
 </head>
