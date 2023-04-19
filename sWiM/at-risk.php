@@ -16,10 +16,6 @@ $user = $_SESSION['name'];
 $email = $_SESSION['email'];
 ?>
 
-<!--
-    Copyright from code and image - sWiM LTDA & SKB LTDA
--->
-
 <!DOCTYPE html>
 <html>
 
