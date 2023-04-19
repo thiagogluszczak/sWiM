@@ -71,17 +71,35 @@ $email = $_SESSION['email'];
         const g = 0.7
 
         class sprite {
-            constructor({ position, v, width, height }) {
+            constructor({ position, v, width, height, color = 'red' }) {
                 this.position = position
                 this.v = v
                 this.width = 50
                 this.height = 96
                 this.lastKey
+                this.attackBox = {
+                    position: this.position,
+                    width: 100,
+                    height: 50
+                }
+                this.color = color
+                this.isAtk
             }
 
             draw() {
-                c.fillStyle = 'blue'
+                c.fillStyle = this.color
                 c.fillRect(this.position.x, this.position.y, this.width, this.height)
+
+                if (this.isAtk) {
+                    c.fillStyle = 'rgba(142, 170, 30, 0.9)'
+                    c.fillRect(
+                        this.attackBox.position.x,
+                        this.attackBox.position.y,
+                        this.attackBox.width,
+                        this.attackBox.height
+
+                    )
+                }
             }
 
             update() {
@@ -90,24 +108,30 @@ $email = $_SESSION['email'];
                 this.position.x += this.v.x
                 this.position.y += this.v.y
 
-                if (this.position.y + this.height + this.v.y >= canvas.height - 50 ) {
+                if (this.position.y + this.height + this.v.y >= canvas.height - 50) {
                     this.v.y = 0
                 } else this.v.y += g
 
                 if (this.position.y - this.v.y <= 80) {
                     keys.w.pressed = false
-                    this.v.y += g
                 }
 
                 if (this.position.x <= 0) {
                     keys.a.pressed = false
                     this.v.x = 0
                 }
-                
-                if (this.position.x + this.width> canvas.width) {
+
+                if (this.position.x + this.width > canvas.width - 2) {
                     keys.d.pressed = false
                     this.v.x = 0
                 }
+            }
+
+            attack() {
+                this.isAtk = true
+                setTimeout(() => {
+                    this.isAtk = false
+                }, 100)
             }
         }
 
@@ -133,7 +157,9 @@ $email = $_SESSION['email'];
             v: {
                 x: 0,
                 y: 10
-            }
+            },
+
+            color: 'blue'
         })
 
         player2.draw()
@@ -148,8 +174,20 @@ $email = $_SESSION['email'];
             d: {
                 pressed: false
             },
-            
+
             w: {
+                pressed: false
+            },
+
+            ArrowLeft: {
+                pressed: false
+            },
+
+            ArrowRight: {
+                pressed: false
+            },
+
+            ArrowUp: {
                 pressed: false
             }
         }
@@ -164,6 +202,7 @@ $email = $_SESSION['email'];
             player2.update()
 
             player1.v.x = 0
+            player2.v.x = 0
 
             if (keys.a.pressed && player1.lastKey === 'a') {
                 player1.v.x = -5
@@ -172,12 +211,51 @@ $email = $_SESSION['email'];
             } else if (keys.w.pressed && player1.lastKey === 'w' && player1.position.y > 0.5 * canvas.height) {
                 player1.v.y = -7
             }
+
+            if (keys.ArrowLeft.pressed && player2.lastKey === 'ArrowLeft') {
+                player2.v.x = -5
+            } else if (keys.ArrowRight.pressed && player2.lastKey === 'ArrowRight') {
+                player2.v.x = 5
+            } else if (keys.ArrowUp.pressed && player2.lastKey === 'ArrowUp' && player2.position.y > 0.5 * canvas.height) {
+                player2.v.y = -7
+            }
+
+            if (
+                player1.attackBox.position.x + player1.attackBox.width >= player2.position.x &&
+                player1.attackBox.position.x <= player2.position.x + player2.width &&
+                player1.attackBox.position.y + player1.attackBox.height >= player2.position.y &&
+                player1.attackBox.position.y <= player2.position.y + player2.height &&
+                player1.isAtk) {
+                player1.isAtk = false
+                player2.color = 'yellow'
+                setTimeout(() => {
+                    return player2.color = 'blue'
+                }, 650);
+            } else if (
+                player2.attackBox.position.x <= player1.position.x + player1.width &&
+                player2.attackBox.position.x + player2.attackBox.width >= player1.position.x &&
+                player2.attackBox.position.y + player2.attackBox.height >= player1.position.y &&
+                player2.attackBox.position.y <= player1.position.y + player1.height &&
+                player2.isAtk) {
+                player2.isAtk = false
+                player1.color = 'yellow'
+                setTimeout(() => {
+                    return player1.color = 'red'
+                }, 650);
+            }
         }
+
+        window.addEventListener("keydown", function (e) {
+            if (["Space", "ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].indexOf(e.code) > -1) {
+                e.preventDefault();
+            }
+        }, false);
 
         animate()
 
         window.addEventListener('keydown', () => {
             switch (event.key) {
+                //player1
                 case 'd':
                     keys.d.pressed = true
                     player1.lastKey = 'd'
@@ -189,6 +267,26 @@ $email = $_SESSION['email'];
                 case 'w':
                     keys.w.pressed = true
                     player1.lastKey = 'w'
+                    break
+                case 'c':
+                    player1.attack()
+                    break
+
+                //player2
+                case 'ArrowRight':
+                    keys.ArrowRight.pressed = true
+                    player2.lastKey = 'ArrowRight'
+                    break
+                case 'ArrowLeft':
+                    keys.ArrowLeft.pressed = true
+                    player2.lastKey = 'ArrowLeft'
+                    break
+                case 'ArrowUp':
+                    keys.ArrowUp.pressed = true
+                    player2.lastKey = 'ArrowUp'
+                    break
+                case 'ArrowDown':
+                    player2.attack()
                     break
             }
             console.log(event.key)
@@ -205,9 +303,21 @@ $email = $_SESSION['email'];
                 case 'w':
                     keys.w.pressed = false
                     break
+
+                case 'ArrowRight':
+                    keys.ArrowRight.pressed = false
+                    break
+                case 'ArrowLeft':
+                    keys.ArrowLeft.pressed = false
+                    break
+                case 'ArrowUp':
+                    keys.ArrowUp.pressed = false
+                    break
             }
             console.log(event.key)
         })
+
+        console.log(player1.position.y)
     </script>
     <div>
         <div class="footer">
