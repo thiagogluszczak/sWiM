@@ -16,6 +16,10 @@ $user = $_SESSION['name'];
 $email = $_SESSION['email'];
 ?>
 
+<!--
+    Copyright from code and image - sWiM LTDA & SKB LTDA
+-->
+
 <!DOCTYPE html>
 <html>
 
@@ -43,9 +47,7 @@ $email = $_SESSION['email'];
                     <li><a href="about.html" style="text-decoration: none;">Sobre</a></li>
                     <li><a href="profile.php" style="text-decoration: none;">
                             <img class="avatar" src="avatar\avatar_1.png">
-                            <?php
-                            echo "$user";
-                            ?>
+                            AIIN ZÉ DA MANGA
                         </a></li>
                 </ul>
             </nav>
@@ -71,14 +73,18 @@ $email = $_SESSION['email'];
         const g = 0.7
 
         class sprite {
-            constructor({ position, v, width, height, color = 'red' }) {
+            constructor({ position, v, width, height, color = 'red', offset}) {
                 this.position = position
                 this.v = v
                 this.width = 50
                 this.height = 96
                 this.lastKey
                 this.attackBox = {
-                    position: this.position,
+                    position: {
+                        x: this.position.x,
+                        y: this.position.y
+                    },
+                    offset,
                     width: 100,
                     height: 50
                 }
@@ -97,13 +103,14 @@ $email = $_SESSION['email'];
                         this.attackBox.position.y,
                         this.attackBox.width,
                         this.attackBox.height
-
                     )
                 }
             }
 
             update() {
                 this.draw()
+                this.attackBox.position.x = this.position.x + this.attackBox.offset.x
+                this.attackBox.position.y = this.position.y
 
                 this.position.x += this.v.x
                 this.position.y += this.v.y
@@ -144,6 +151,10 @@ $email = $_SESSION['email'];
             v: {
                 x: 0,
                 y: 10
+            },
+            offset: {
+                x: 0,
+                y: 100
             }
         })
 
@@ -158,8 +169,11 @@ $email = $_SESSION['email'];
                 x: 0,
                 y: 10
             },
-
-            color: 'blue'
+            color: 'blue',
+            offset: {
+                x: -50,
+                y: 0
+            }
         })
 
         player2.draw()
@@ -192,7 +206,14 @@ $email = $_SESSION['email'];
             }
         }
 
-        let lastKey
+        function Collision({ ply1, ply2 }) {
+            return (
+                ply1.attackBox.position.x + ply1.attackBox.width >= ply2.position.x &&
+                ply1.attackBox.position.x <= ply2.position.x + ply2.width &&
+                ply1.attackBox.position.y + ply1.attackBox.height >= ply2.position.y &&
+                ply1.attackBox.position.y <= ply2.position.y + ply2.height &&
+                ply1.isAtk)
+        }
 
         function animate() {
             window.requestAnimationFrame(animate);
@@ -205,26 +226,30 @@ $email = $_SESSION['email'];
             player2.v.x = 0
 
             if (keys.a.pressed && player1.lastKey === 'a') {
-                player1.v.x = -5
+                player1.v.x = -5,
+                player1.attackBox.offset.x = -50
             } else if (keys.d.pressed && player1.lastKey === 'd') {
-                player1.v.x = 5
+                player1.v.x = 5,
+                player1.attackBox.offset.x = 0
             } else if (keys.w.pressed && player1.lastKey === 'w' && player1.position.y > 0.5 * canvas.height) {
                 player1.v.y = -7
             }
 
             if (keys.ArrowLeft.pressed && player2.lastKey === 'ArrowLeft') {
                 player2.v.x = -5
+                player2.attackBox.offset.x = -50
             } else if (keys.ArrowRight.pressed && player2.lastKey === 'ArrowRight') {
                 player2.v.x = 5
+                player2.attackBox.offset.x = 0
             } else if (keys.ArrowUp.pressed && player2.lastKey === 'ArrowUp' && player2.position.y > 0.5 * canvas.height) {
                 player2.v.y = -7
             }
 
             if (
-                player1.attackBox.position.x + player1.attackBox.width >= player2.position.x &&
-                player1.attackBox.position.x <= player2.position.x + player2.width &&
-                player1.attackBox.position.y + player1.attackBox.height >= player2.position.y &&
-                player1.attackBox.position.y <= player2.position.y + player2.height &&
+                Collision({
+                    ply1: player1,
+                    ply2: player2
+                }) &&
                 player1.isAtk) {
                 player1.isAtk = false
                 player2.color = 'yellow'
@@ -232,10 +257,10 @@ $email = $_SESSION['email'];
                     return player2.color = 'blue'
                 }, 650);
             } else if (
-                player2.attackBox.position.x <= player1.position.x + player1.width &&
-                player2.attackBox.position.x + player2.attackBox.width >= player1.position.x &&
-                player2.attackBox.position.y + player2.attackBox.height >= player1.position.y &&
-                player2.attackBox.position.y <= player1.position.y + player1.height &&
+                Collision({
+                    ply1: player2,
+                    ply2: player1
+                }) &&
                 player2.isAtk) {
                 player2.isAtk = false
                 player1.color = 'yellow'
