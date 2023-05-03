@@ -4,8 +4,8 @@ const canvas = document.querySelector('canvas')
 const user = document.getElementById('user').textContent
 const c = canvas.getContext('2d')
 
-canvas.width = innerWidth
-canvas.height = innerHeight
+canvas.width = 1366
+canvas.height = 768
 
 c.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -24,14 +24,10 @@ class sprite {
 
     update() {
         this.draw()
-
-        setTimeout(() => {
-            this.position.x += 64;
-        }, 5);
     }
 }
 
-class Player {
+class Player{
     constructor({ position, v, color, offset}) {
         this.position = position
         this.v = v
@@ -64,9 +60,9 @@ class Player {
         c.fillRect(this.position.x, this.position.y, this.width, this.height)
 
         c.fillStyle = 'orange'
-        c.fillRect(canvas.width * 0.5 - 50, innerHeight * 0.7, 100, 20),
-        c.fillRect(0, innerHeight * 0.5, canvas.width * 0.4, 20),
-        c.fillRect(canvas.width * 0.6, innerHeight * 0.5, canvas.width * 0.4, 20)
+        c.fillRect(canvas.width * 0.5 - 50, 768 * 0.7, 100, 20),
+        c.fillRect(0, 768 * 0.5, canvas.width * 0.4, 20),
+        c.fillRect(canvas.width * 0.6, 768 * 0.5, canvas.width * 0.4, 20)
 
         c.font = '23px Tahoma'
         c.fillStyle = '#b83dba'
@@ -94,7 +90,7 @@ class Player {
         this.position.y += this.v.y
 
         if (this.position.y + this.height + this.v.y >= canvas.height - 64 ||
-            innerHeight * 0.7 + 20 >= this.position.y + this.height + this.v.y &&
+            768 * 0.7 + 20 >= this.position.y + this.height + this.v.y &&
             Block({ ply: this })) {
             this.v.y = 0
         } else this.v.y += g
@@ -128,18 +124,10 @@ class Player {
     }
 }
 
-const background = new sprite({
-    position: {
-        x: 0,
-        y: innerHeight - 64
-    },
-    imageSrc: '/At_Risk/sprites/ground.png'
-})
-
 const player1 = new Player({
     position: {
-        x: 0.2 * innerWidth,
-        y: innerHeight - 170
+        x: 0.2 * 1366,
+        y: 768 - 170
     },
     v: {
         x: 0,
@@ -156,8 +144,8 @@ player1.draw()
 
 const player2 = new Player({
     position: {
-        x: 0.8 * innerWidth - 50,
-        y: innerHeight - 170
+        x: 0.8 * 1366 - 50,
+        y: 768 - 170
     },
     v: {
         x: 0,
@@ -187,6 +175,10 @@ const keys = {
         pressed: false
     },
 
+    s: {
+        pressed: false
+    },
+
     ArrowLeft: {
         pressed: false
     },
@@ -200,14 +192,14 @@ const keys = {
     }
 }
 
-var pi = innerHeight - 160
-var p1 = innerHeight * 0.8
+var pi = 768 - 160
+var p1 = 768 * 0.8
 
 function Block({ ply }) {
     return (
-        ply.position.y + ply.height + ply.v.y >= innerHeight * 0.7 &&
-        ply.position.x + ply.width + ply.v.x <= innerWidth * 0.5 + 100 &&
-        innerWidth * 0.5 - 50 <= ply.position.x + ply.width + ply.v.x
+        ply.position.y + ply.height + ply.v.y >= 768 * 0.7 &&
+        ply.position.x + ply.width + ply.v.x <= 1366 * 0.5 + 100 &&
+        1366 * 0.5 - 50 <= ply.position.x + ply.width + ply.v.x
     )
 }
 
@@ -224,14 +216,22 @@ function animate() {
     window.requestAnimationFrame(animate);
     c.fillStyle = 'black'
     c.fillRect(0, 0, canvas.width, canvas.height)
-    background.update()
+    for (let j = 0; j * 64 < 1366; j++) {
+        new sprite({
+        position: {
+            x: 64 * j,
+            y: 768 - 64
+        },
+        imageSrc: 'https://raw.githubusercontent.com/thiagogluszczak/sWiM/main/sWiM/At_Risk/sprites/ground.png'
+    }).update()
+    }
     player1.update()
     player2.update()
 
     player1.v.x = 0
     player2.v.x = 0
 
-    player2.money.position.x = innerWidth - 100
+    player2.money.position.x = 1366 - 100
 
     if (keys.a.pressed) {
         player1.v.x = -5,
@@ -253,6 +253,10 @@ function animate() {
     } else if (keys.w.pressed && player1.position.y == pi || keys.w.pressed && Block({ ply: player1 })) {
         keys.w.pressed = false
         player1.v.y = -18
+    } else if (keys.s.pressed) {
+        player1.height = 50
+    } else if (keys.s.pressed == false) {
+        player1.height = 96
     }
 
     if (keys.ArrowLeft.pressed) {
@@ -327,6 +331,9 @@ window.addEventListener('keydown', () => {
         case 'w':
             keys.w.pressed = true
             break
+        case 's':
+            keys.s.pressed = true
+            break
         case 'c':
             player1.attack()
             break
@@ -358,6 +365,10 @@ window.addEventListener('keyup', () => {
             break
         case 'w':
             keys.w.pressed = false
+            break
+        case 's':
+            keys.s.pressed = false
+            player1.position.y + 100
             break
 
         case 'ArrowRight':
