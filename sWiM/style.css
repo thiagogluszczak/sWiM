@@ -32,6 +32,7 @@ h1.welcome {
 
 div.recent {
     align-items: justify;
+    display: flex;
     margin-top: 30px;
 }
 
@@ -102,7 +103,8 @@ header {
     border-bottom: solid 5px #b83dba;
     top: 0;
     background: rgb(12, 12, 12);
-    height: 15vh;
+    z-index: 10;
+    height: 100px;
     position: fixed;
     width: 100%;
     display: flex;
@@ -157,6 +159,7 @@ input.submit {
 main {
     min-height: 90vh;
     width: 100%;
+    margin-top: 100px;
 }
 
 li {
@@ -328,6 +331,7 @@ div.footer {
     margin: -10px;
     padding: 10px;
     border-top: 5px solid #ffff4c;
+    position: relative;
 }
 
 footer {
@@ -346,4 +350,49 @@ canvas.game {
     width: 80vw;
     height: calc(56.25% * 80vw);
     margin-inline: auto;
+}
+
+img.rgame {
+    position: relative;
+    background-color: black;
+    width: 40vw;
+    height: calc(40vw * 0.5625);
+    margin-inline: 5%;
+    border: #b83dba 2px solid;
+    border-bottom-color: #ffff4c;
+    border-right-color: #ffff4c;
+    box-shadow: #b83dba90 30px 30px;
+}
+
+h1.rgame {
+    font-size: 30px;
+    color: #ffff4c;
+    margin-top: 140px;
+    margin-left: 0;
+}
+
+.details {
+    position: absolute;
+    z-index: 0;
+    opacity: 0.5;
+    background-color: black;
+    width: 40vw;
+    height: calc(40vw * 0.5625);
+    margin-inline: 5%;
+    border: #b83dba 2px solid;
+    border-bottom-color: #ffff4c;
+    border-right-color: #ffff4c;
+}
+
+.details-active {
+    position: absolute;
+    z-index: 0;
+    opacity: 0.8;
+    background-color: black;
+    width: 40vw;
+    height: calc(40vw * 0.5625);
+    margin-inline: 5%;
+    border: #b83dba 2px solid;
+    border-bottom-color: #ffff4c;
+    border-right-color: #ffff4c;
 }

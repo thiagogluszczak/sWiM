@@ -1,15 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    
-    <link href="style.css" type="text/css" rel="stylesheet">
 </head>
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    body {
+        background-color: rgb(64, 65, 59);
+        display: flex;
+    }
+
+    div {
+        border-radius: 50%;
+        display: flex;
+        margin: auto;
+        padding: auto;
+        width: 50vh;
+        height: 50vh;
+        padding: auto;
+        margin-top: 25vh;
+        color: darkmagenta;
+    }
+
+    h1 {
+        margin: auto;
+    }
+</style>
+
 <body>
-    <canvas></canvas>
-    <script type="text/javascript" src="at-risk.js"></script>
+    <div id="1">
+        <h1>Muito gay</h1>
+        <script type="text/javascript">
+            const rgb = document.getElementById('1')
+            let id = null;
+            let x = 0;
+            clearInterval(id);
+            
+            id = setInterval(angle, 50);
+            function angle() {
+                if(x == 360) {
+                clearInterval(id);
+                x = 0;
+            } else if (x == 0) {
+                id = setInterval(angle, 1000);
+            } {
+                x++;
+                rgb.style.background = 'repeating-linear-gradient('+x+'deg, rgb(64, 65, 59), black)';
+            }
+            }
+            
+        </script>
+    </div>
 </body>
+
 </html>

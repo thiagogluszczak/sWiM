@@ -43,7 +43,7 @@ $email = $_SESSION['email'];
                     <li><a href="about.html" style="text-decoration: none;">Sobre</a></li>
                     <li><a href="profile.php" style="text-decoration: none;">
                             <img class="avatar" src="avatar\avatar_1.png">
-                            <?php 
+                            <?php
                             echo "$user";
                             ?>
                         </a></li>
@@ -55,10 +55,26 @@ $email = $_SESSION['email'];
 
     <main>
         <div class="main">
+            <h1 class="welcome">Olá
+                <?php echo "$user"; ?>
+            </h1>
             <div class="recent">
-                <h1 class="welcome">Olá
-                    <?php echo "$user"; ?>
-                </h1>
+
+                <a href="at-risk.php" class='lk'>
+                    <img class="rgame" id='rgame' style="opacity: 1; position: absolute; z-index: 1;" onmouseover="detail()" onmouseout="detailoff()"
+                    src="https://cbissn.ibict.br/images/phocagallery/galeria2/thumbs/phoca_thumb_l_image03_grd.png">
+                </a>
+                <div class="details" onmouseover="detail()" onmouseout="detailoff()" id='dtl'>
+                    <h1 class='rgame'>At-Risk</h1>
+                </div>
+                <script>
+                    function detail() {
+                        document.getElementById('rgame').style.opacity = '1';
+                    }
+                    function detailoff() {
+                        document.getElementById('rgame').style.opacity = '1';
+                    }
+                </script>
             </div>
         </div>
     </main>
