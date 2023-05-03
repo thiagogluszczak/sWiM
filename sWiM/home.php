@@ -59,13 +59,12 @@ $email = $_SESSION['email'];
                 <?php echo "$user"; ?>
             </h1>
             <div class="recent">
-
-                <a href="at-risk.php" class='lk'>
+                <a href="at-risk.html" class='lk' onmouseover="detail()" onmouseout="detailoff()">
                     <img class="rgame" id='rgame' style="opacity: 1; position: absolute; z-index: 1;" onmouseover="detail()" onmouseout="detailoff()"
                     src="https://cbissn.ibict.br/images/phocagallery/galeria2/thumbs/phoca_thumb_l_image03_grd.png">
                 </a>
                 <div class="details" onmouseover="detail()" onmouseout="detailoff()" id='dtl'>
-                    <h1 class='rgame'>At-Risk</h1>
+                    <h5 class='rgame'>At Risk</h5>
                 </div>
                 <script>
                     function detail() {
@@ -74,6 +73,25 @@ $email = $_SESSION['email'];
                     function detailoff() {
                         document.getElementById('rgame').style.opacity = '1';
                     }
+
+                    const rgb = document.getElementById('dtl')
+                    let id = null;
+                    let x = 0;
+                    clearInterval(id);
+            
+                    id = setInterval(angle, 25);
+                    function angle() {
+                       if(x == 360) {
+                            clearInterval(id);
+                            x = 0;
+                    }  else if (x == 0) {
+                        id = setInterval(angle, 1000);
+                    } {
+                        x++;
+                        rgb.style.background = 'linear-gradient('+x+'deg, rgba(64, 65, 59, 0.4), #ffff4c20, #b83dba)';
+                    }
+                    }
+            
                 </script>
             </div>
         </div>
