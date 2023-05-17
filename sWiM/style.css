@@ -52,17 +52,19 @@ div.dados {
     color: #b83dba;
     text-shadow: 3px 3px black;
     margin: 5%;
+    display: grid;
 }
 
 input {
     border: #b83dba 1px solid;
     border-radius: 12px;
     height: 2rem;
-    min-width: 76%;
+    min-width: 60%;
+    max-width: 70%;
     background: #ffff4c;
     font-size: 1.3rem;
     color: #59035a;
-    margin-left: 10%;
+    margin-inline: auto;
 }
 
 p {
@@ -152,8 +154,8 @@ nav {
     display: none;
 }
 
-input.submit {
-    cursor: pointer;
+input.inline {
+    margin-inline: auto;
 }
 
 main {
@@ -262,7 +264,7 @@ a.leave {
 
     .nav-list {
         position: absolute;
-        top: 18vh;
+        top: 115px;
         right: -1vh;
         width: 30vh;
         height: 50vh;
@@ -326,6 +328,7 @@ div.central {
 
 div.footer {
     background-color: black;
+    z-index: 10;
     color: #ffff4c;
     text-shadow: 1px 1px #b83dba;
     margin: -10px;
@@ -347,6 +350,9 @@ canvas.game {
     display: flex;
     position: static;
     margin-top: 25vh;
+    margin-bottom: 25vh;
+    width: 640px;
+    height: 320px;
     margin-inline: auto;
 }
 

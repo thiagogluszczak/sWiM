@@ -39,16 +39,16 @@
         <div class="login">
             <h1>Entrar</h1>
             <div class="dados">
-                <form method="POST" style="margin-bottom: -100px;" action="testlogin.php">
-                    <h2 style="margin-top: 1.8rem; margin-left: 9%;">Email:</h2>
-                    <input type="email" name="email" maxlength="110" id="email" style="padding-left: 10px;" required>
-                    <h2 style="margin-left: 9%;">Senha:</h2>
-                    <input type="password" name="password" id="password" maxlength="45" style="padding-left: 10px;"
+                <form method="POST" style="margin-bottom: -90px; display: grid;" action="testlogin.php">
+                    <h2 style="margin-top: 1.8rem;">Email:</h2>
+                    <input type="email" name="email" maxlength="110" id="email" style="padding-left: 10px; margin-top: 1rem;" required>
+                    <h2 style="margin-top: 1.8rem;">Senha:</h2>
+                    <input type="password" name="password" id="password" maxlength="45" style="padding-left: 10px; margin-top: 1rem;"
                         required>
-                    <input class="submit" href="home.php" style="margin-top: 5rem; margin-left: 11.2%;" type="submit"
+                    <input class="submit" href="home.php" style="margin-top: 5rem; cursor: pointer;" type="submit"
                         name="submit" id="submit" value="Log In">
                 </form>
-                <div class="dados" style="padding-top: 12vh; display: flex;">
+                <div class="dados" style="padding-top: 12vh;">
                     <h2 style="border-top: 1px solid #ffff4c; width: 100%; display: flex; padding-top: 2.3rem;">Não
                         possui uma conta?<a href="logon.php"
                             style="font-size: 20px; text-decoration: none; margin-left: auto;"> Cadastre-se</a></h2>

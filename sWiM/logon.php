@@ -51,23 +51,24 @@ if (isset($_POST['submit'])) {
     <script type="text/javascript" src="main.js"></script>
 
     <main class="login">
-        <div class="login">
+        <div class="login" style="display: grid;">
             <h1>Cadastrar</h1>
             <div class="dados">
-                <form method="POST" style="margin-bottom: -100px;" action="logon.php">
+                <form method="POST" style="margin-bottom: -100px; display: grid;" action="logon.php">
                     <h2 style="margin-top: 3rem; margin-left: 9%;">Nome de usuário:</h2>
-                    <input type="text" name="name" id="name" maxlength="10" style="padding-left: 10px;" required>
-                    <h2 style="font-size: 10px; letter-spacing: 2px; margin-left: 9%;">* No máximo 10 caracteres</h2>
+                    <input type="text" name="name" id="name" class="inline" maxlength="10"
+                        style="padding-left: 10px; margin-top: 1rem;" required>
+                    <h2 style="font-size: 10px; letter-spacing: 2px; margin-left: 9%; margin-top: 6px;">* No máximo 10
+                        caracteres</h2>
                     <h2 style="margin-top: 1.8rem; margin-left: 9%;">Email:</h2>
-                    <input type="email" name="email" maxlength="110" id="email" style="padding-left: 10px;" required>
-                    <h2 style="margin-left: 9%;">Senha:</h2>
-                    <input class="submit" type="password" name="password" id="password" maxlength="45"
-                        style="padding-left: 10px;" required>
-                    <input style="margin-top: 5rem; margin-left: 11.2%;" href="login.php" type="submit" name="submit" id="submit"
-                        value="Log On">
+                    <input type="email" name="email" class="inline" maxlength="110" id="email"
+                        style="padding-left: 10px; margin-top: 1rem;" required>
+                    <h2 style="margin-left: 9%; margin-top: 1.8rem;">Senha:</h2>
+                    <input type="password" name="password" id="password" maxlength="45" style="padding-left: 10px; margin-top: 1rem; margin-inline: auto;" required>
+                    <input style="margin-top: 5rem; cursor: pointer;" class="inline" href="login.php" type="submit" name="submit"
+                        id="submit" value="Log On">
                 </form>
-                <div class="dados" style="padding-top: 12vh; display: flex;">
-                </div>
+                <div class="dados" style="padding-top: 12vh; display: flex;"></div>
             </div>
         </div>
     </main>
