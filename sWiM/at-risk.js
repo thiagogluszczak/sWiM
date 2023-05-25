@@ -74,7 +74,9 @@ class Player {
         c.fillText(this.value, this.pos.x, this.pos.y - 10)
 
         if (this.isAtk) {
-            c.fillStyle = 'rgba(142, 170, 30, 0.9)'
+            let atkColor;
+            atkColor = 'rgba(142, 170, 30, 0.9)'
+            c.fillStyle = atkColor
             c.fillRect(
                 this.attackBox.pos.x,
                 this.attackBox.pos.y,
@@ -214,7 +216,7 @@ function Collision({ ply1, ply2 }) {
 
 function animate() {
     window.requestAnimationFrame(animate);
-    c.fillStyle = '#00001f'
+    c.fillStyle = '#990000'
     c.fillRect(0, 0, canvas.width, canvas.height)
     for (let j = 0; j < 23; j++) {
         new sprite({
@@ -234,8 +236,7 @@ function animate() {
     player2.money.pos.x = canvas.width - 100
 
     if (keys.a.pressed) {
-        player1.v.x = -5,
-            player1.attackBox.offset.x = -50
+        player1.v.x = -5
         if (keys.d.pressed) {
             player1.v.x = 0
         }
@@ -244,8 +245,7 @@ function animate() {
             player1.v.y = -18
         }
     } else if (keys.d.pressed) {
-        player1.v.x = 5,
-            player1.attackBox.offset.x = 0
+        player1.v.x = 5
         if (keys.w.pressed && player1.pos.y == pi || keys.w.pressed && Block({ ply: player1 })) {
             keys.w.pressed = false
             player1.v.y = -18
@@ -334,6 +334,11 @@ window.addEventListener('keydown', () => {
         case 'c':
             player1.attack()
             player1.attackBox.width = 100
+            if (keys.a.pressed) {
+                player1.attackBox.offset.x = -50
+            } else if(keys.d.pressed) {
+                player1.attackBox.offset.x = 0
+            }
             player1.attackBox.color = 'red'
             break
         case 'v':
