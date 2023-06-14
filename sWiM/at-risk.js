@@ -344,6 +344,11 @@ window.addEventListener('keydown', () => {
         case 'v':
             player1.attack()
             player1.attackBox.width = 500
+            if (keys.a.pressed) {
+                player1.attackBox.offset.x = -450
+            } else if(keys.d.pressed) {
+                player1.attackBox.offset.x = 0
+            }
             player1.attackBox.color = 'red'
             break
 
