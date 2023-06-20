@@ -24,19 +24,19 @@ class sprite {
 
     update() {
         this.draw()
-
-        setTimeout(() => {
-            this.pos.x += 64;
-        }, 5);
     }
 }
 
-class Player {
-    constructor({ pos, v, color, offset}) {
-        this.pos = pos
+class Player extends sprite {
+    constructor({ pos, v, color, offset, imageSrc}) {
+        super({
+            pos,
+            imageSrc
+        })
+
         this.v = v
         this.width = 50
-        this.height = 96
+        this.height = 200
         this.attackBox = {
             pos: {
                 x: this.pos.x,
@@ -60,8 +60,7 @@ class Player {
     }
 
     draw() {
-        c.fillStyle = this.color
-        c.fillRect(this.pos.x, this.pos.y, this.width, this.height)
+        c.drawImage(this.image, this.pos.x - 75, this.pos.y, this.width + 150, this.height)
 
         c.fillStyle = 'orange'
         c.fillRect(canvas.width * 0.5 - 50, canvas.height * 0.7, 100, 20),
@@ -133,7 +132,7 @@ class Player {
 const player1 = new Player({
     pos: {
         x: 0.2 * canvas.width,
-        y: canvas.height - 170
+        y: canvas.height - 274
     },
     v: {
         x: 0,
@@ -143,7 +142,8 @@ const player1 = new Player({
     offset: {
         x: 0,
         y: 100
-    }
+    },
+    imageSrc: './At_Risk/sprites/blett_stand(0).png'
 })
 
 player1.draw()
@@ -151,7 +151,7 @@ player1.draw()
 const player2 = new Player({
     pos: {
         x: 0.8 * canvas.width - 50,
-        y: canvas.height - 170
+        y: canvas.height - 274
     },
     v: {
         x: 0,
@@ -161,7 +161,8 @@ const player2 = new Player({
     offset: {
         x: -50,
         y: 0
-    }
+    },
+    imageSrc: ""
 })
 
 player2.draw()
@@ -194,7 +195,7 @@ const keys = {
     }
 }
 
-var pi = canvas.height - 160
+var pi = canvas.height - 264
 var p1 = canvas.height * 0.8
 
 function Block({ ply }) {
